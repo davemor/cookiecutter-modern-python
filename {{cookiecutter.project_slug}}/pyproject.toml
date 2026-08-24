@@ -1,0 +1,66 @@
+[project]
+name = "{{ cookiecutter.distribution_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+requires-python = ">={{ cookiecutter.python_version }}"
+authors = [
+    { name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}" },
+]
+{% if cookiecutter.license != "none" %}license = "{{ cookiecutter.license }}"
+license-files = ["LICENSE"]
+{% endif %}dependencies = [
+{% if cookiecutter.project_kind == "cli" %}    "typer>=0.26",
+{% endif %}]
+{% if cookiecutter.repository_url %}
+[project.urls]
+Repository = "{{ cookiecutter.repository_url }}"
+{% endif %}{% if cookiecutter.project_kind == "cli" %}
+[project.scripts]
+"{{ cookiecutter.project_slug }}" = "{{ cookiecutter.package_name }}.__main__:app"
+{% endif %}
+[dependency-groups]
+dev = [
+    "basedpyright>=1.39",
+    "pytest>=9",
+    "pytest-cov>=7",
+    "ruff>=0.16",
+{% if cookiecutter.include_pre_commit == "yes" %}    "prek>=0.4",
+{% endif %}]
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.basedpyright]
+typeCheckingMode = "standard"
+pythonVersion = "{{ cookiecutter.python_version }}"
+include = ["src", "tests"]
+venvPath = "."
+venv = ".venv"
+reportMissingTypeStubs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+branch = true
+source = ["{{ cookiecutter.package_name }}"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = ["if __name__ == .__main__.:"]

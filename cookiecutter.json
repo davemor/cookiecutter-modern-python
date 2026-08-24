@@ -1,14 +1,59 @@
 {
     "project_name": "My Python Project",
-    "package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
+    "distribution_name": "{{ cookiecutter.project_slug }}",
+    "package_name": "{{ cookiecutter.project_slug.replace('-', '_').replace('.', '_') }}",
+    "description": "A short description of the project.",
+    "project_kind": [
+        "cli",
+        "library"
+    ],
+    "python_version": [
+        "3.14",
+        "3.13",
+        "3.12"
+    ],
+    "version": "0.1.0",
     "author_name": "Your Name",
     "author_email": "you@example.com",
-    "description": "A short description of the project.",
-    "python_version": "3.12",
-    "version": "0.1.0",
+    "repository_url": "",
     "license": [
         "MIT",
         "Apache-2.0",
         "none"
-    ]
+    ],
+    "copyright_year": "2026",
+    "include_pre_commit": [
+        "yes",
+        "no"
+    ],
+    "__prompts__": {
+        "project_name": "Human-readable project name",
+        "project_slug": "Repository and command name",
+        "distribution_name": "Python distribution name",
+        "package_name": "Python import package name",
+        "description": "Short project description",
+        "project_kind": {
+            "__prompt__": "Project type",
+            "cli": "Typer command-line application",
+            "library": "Importable Python library"
+        },
+        "python_version": "Minimum and development Python version",
+        "version": "Initial project version",
+        "author_name": "Author name",
+        "author_email": "Author email",
+        "repository_url": "Repository URL (optional)",
+        "license": {
+            "__prompt__": "Project licence",
+            "MIT": "MIT",
+            "Apache-2.0": "Apache License 2.0",
+            "none": "No licence metadata or file"
+        },
+        "copyright_year": "Copyright year",
+        "include_pre_commit": {
+            "__prompt__": "Include Git hooks",
+            "yes": "Yes, include a pre-commit compatible configuration using prek",
+            "no": "No Git-hook configuration"
+        }
+    }
 }

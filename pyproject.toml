@@ -1,0 +1,29 @@
+[project]
+name = "cookiecutter-modern-python-template"
+version = "0.1.0"
+description = "Tests and development tooling for cookiecutter-modern-python"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "cookiecutter>=2.7.1",
+    "pytest>=9",
+    "ruff>=0.16",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
